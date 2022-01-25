@@ -1,0 +1,41 @@
+---
+
+- name: Create Octoprint directory
+  ansible.builtin.file:
+    path: "{{ config_dir }}/OctoPrint"
+    state: directory
+    mode: 0755
+  become: false
+
+- name: Install octoprint
+  ansible.builtin.pip:
+    name: octoprint
+    state: present
+    # version: "{{ item.version | default(omit) }}"
+    # executable: "{{ item.executable | default(omit) }}"
+
+- name: adding user to required groups
+  user:
+    name: "{{ lookup('env','USER') }}"
+    groups:
+    - tty
+    - dialout
+    append: yes
+
+- name: Copy systemd service file
+  ansible.builtin.copy:
+    src: files/octoprint.service
+    dest: /etc/systemd/system/octoprint.service
+    mode: 0700
+  become: true
+
+- name: Enable octoprint service
+  ansible.builtin.systemd:
+    name: octoprint.service
+    enabled: yes
+    state: started
+
+
+# FIXME Instal plugins..
+# https://plugins.octoprint.org/plugins/bedlevelvisualizer/
+# sudo apt install libatlas3-base

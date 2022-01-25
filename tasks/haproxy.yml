@@ -1,0 +1,21 @@
+---
+
+- name: Install haproxy
+  ansible.builtin.package:
+    name: haproxy
+    state: latest
+  become: yes
+
+- name: Copy systemd service file
+  ansible.builtin.copy:
+    # Based on https://community.octoprint.org/t/reverse-proxy-configuration-examples/1107
+    src: files/haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0600
+  become: true
+
+- name: Enable haproxy service
+  ansible.builtin.systemd:
+    name: haproxy.service
+    enabled: yes
+    state: started
