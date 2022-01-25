@@ -1,14 +1,18 @@
 # Octoprint
 
-Setup a Linux machine with [Octoprint](https://octoprint.org/)
+Setup [Octoprint](https://octoprint.org/) on a Linux machine.
+
+## Note
+
+This currently assumes use of the whole machine for Octoprint.
 
 ## TODO
 
-[] Setup HA Proxy
-[] Setup TLS
-[] Add management of plugins
-[] Add backup/restore of settings
-[] Test upgrade flow
+- [] Setup HA Proxy
+- [] Setup TLS
+- [] Add management of plugins
+- [] Add backup/restore of settings
+- [] Test upgrade flow
 
 ## Setup
 
